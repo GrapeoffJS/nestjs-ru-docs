@@ -1,3 +1,4 @@
 * [**Знакомство**](/#Знакомство)
 * **Обзор**
-  * [Первые шаги](pages/overview/first-steps.md#Первые-шаги)
+    * [Первые шаги](/pages/overview/first-steps.md#Первые-шаги)
+    * [Контроллеры (англ. Controllers)](/pages/overview/controllers.md#Контроллеры)
