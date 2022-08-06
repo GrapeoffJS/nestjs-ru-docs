@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="description" content="Русский перевод документации Nest.js">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/sidebar.min.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -14,9 +15,19 @@
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#d85959">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+    <style>
+        .sidebar-nav ul li.folder::before {
+            left: 265px !important;
+            border-right: 2px solid #505d6b !important;
+            border-bottom: 2px solid #505d6b !important;
+        }
+    </style>
 </head>
 <body>
 <div id="app"></div>
+
+<script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+
 <script>
     window.$docsify = {
         name: '',
@@ -26,8 +37,8 @@
         coverpage: true,
         search: {
             maxAge: 86400000,
-            paths: ['/'],
-            pathNamespaces: ['/'],
+            paths: 'auto',
+            pathNamespaces: 'auto',
             placeholder: 'Что будем искать?',
             noData: 'Ничего не найдено :(',
             depth: 3,
@@ -47,6 +58,9 @@
             },
             warning: {
                 label: 'Это важно!'
+            },
+            attention: {
+                label: 'Внимание!'
             }
         },
         share: {
@@ -59,7 +73,10 @@
                 url: '',
                 title: 'Перевод документации NestJS на русский!'
             }
-        }
+        },
+        plugins: [
+            EditOnGithubPlugin.create('https://github.com/GrapeoffJS/kindagoose/tree/master/docs', null, "Нашёл ошибку? Жми сюда!")
+        ]
     }
 </script>
 <!-- Docsify v4 -->
@@ -81,6 +98,7 @@
 <script src="//cdn.jsdelivr.net/npm/@alertbox/docsify-footer/dist/docsify-footer.min.js"></script>
 <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
 <script src="//unpkg.com/docsify-share/build/index.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 
 <!-- Syntax highlighting -->
 <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
