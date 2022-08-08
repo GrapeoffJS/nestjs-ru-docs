@@ -11,11 +11,7 @@
 последних версий языка, поэтому, чтобы использовать его с ванильным JavaScript, нам необходим
 компилятор [Babel](https://babeljs.io/).
 
-> [!WARNING]
-> В данном переводе будут показаны только примеры с TypeScript. На это есть три причины:
-> 1) Мне лень.
-> 2) **Docsify** (движок, на котором построена данная документация) не умеет также красиво делать кнопочку _**toggle js/ts**_, как это сделано в официальной документации.
-> 3) Если вы используете **Nest** c **JavaScript**, то вам срочно нужно пройти интенсивный курс лечения у психиатра!
+В основном, в наших примерах будет использоваться **TypeScript**, но вы всегда сможете переключить их на **JavaScript**.
 
 ## Подготовка
 
@@ -62,6 +58,10 @@ src/
 
 `main.ts` содержит в себе асинхронную функцию, которая запускает наше приложение:
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -73,6 +73,22 @@ async function bootstrap() {
 
 bootstrap();
 ```
+
+#### **JavaScript**
+
+```js
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+    const app = await NestFactory.create(AppModule);
+    await app.listen(3000);
+}
+
+bootstrap();
+```
+
+<!-- tabs:end -->
 
 Чтобы создать экземпляр **Nest** приложения, мы используем класс `NestFactory` класс. `NestFactory` предоставляет нам
 несколько статических методов, позволяющих нам создать экземпляр приложения. Метод `create()` возвращает объект

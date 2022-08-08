@@ -24,6 +24,10 @@
 
 **_cats.controller.ts_**
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Controller, Get } from '@nestjs/common';
 
@@ -35,6 +39,21 @@ export class CatsController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Get } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+    @Get() findAll() {
+        return 'This action returns all cats';
+    }
+}
+```
+
+<!-- tabs:end -->
 
 > [!NOTE] Чтобы создать контроллер при помощи **CLI**, просто выполните такую команду: `$ nest g controller cats`.
 
@@ -75,6 +94,10 @@ export class CatsController {
 
 **_cats.controller.ts_**
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
@@ -87,6 +110,23 @@ export class CatsController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Bind, Get, Req } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+    @Get()
+    @Bind(Req()) findAll(request) {
+        return 'This action returns all cats';
+    }
+}
+```
+
+<!-- tabs:end -->
+
 
 > [!NOTE] Чтобы воспользоваться преимуществами типизации Express (как это показано выше), установите пакет `@types/express` как зависимость для разработки.
 
@@ -130,6 +170,10 @@ export class CatsController {
 предоставлять пользователям конечную точку, которая создаёт новые записи. Давайте создадим обработчик `POST` запросов,
 чтобы это реализовать.
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Controller, Get, Post } from '@nestjs/common';
 
@@ -146,6 +190,26 @@ export class CatsController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Get, Post } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+    @Post() create() {
+        return 'This action adds a new cat';
+    }
+
+    @Get() findAll() {
+        return 'This action returns all cats';
+    }
+}
+```
+
+<!-- tabs:end -->
+
 
 Как видите, это очень просто. **Nest** предоставляет декораторы для всех стандартных **HTTP** методов: `@Get()`
 , `@Post()`, `@Put()`, `@Delete()`, `@Patch()`, `@Options()`, и `@Head()`, а также `@All()`, который позволяет
@@ -262,9 +326,11 @@ class SomeController {
 ниже. Параметр маршрута, объявленный таким образом может быть получен при помощи декоратора `@Param()`, который должен
 быть добавлен в сигнатуру метода.
 
-```typescript
-import { Controller, Get, Param } from '@nestjs/common';
+<!-- tabs:start -->
 
+#### **TypeScript**
+
+```typescript
 @Controller()
 class SomeController {
     @Get(':id')
@@ -275,10 +341,28 @@ class SomeController {
 }
 ```
 
+#### **JavaScript**
+
+```js
+@Controller() class SomeController {
+    @Get(':id')
+    @Bind(Param()) findOne(params) {
+        console.log(params.id);
+        return `This action returns a #${params.id} cat`;
+    }
+}
+```
+
+<!-- tabs:end -->
+
 `@Param()` используется чтобы помечать параметры метода (`params` в примере выше) и делает параметры **маршрута**
 доступными в качестве свойств этого декорированного параметра метода в теле данного метода. Из примера видно, что мы
 получаем доступ к `id` с помощью обращению к полю с таким именем. Вы также можете получить конкретный параметр из
 запроса по его токену, передав его в качестве аргумента в декораторе `@Param()`.
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Controller, Get, Param } from '@nestjs/common';
@@ -291,6 +375,21 @@ class SomeController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Get, Param } from '@nestjs/common';
+
+@Controller() class SomeController {
+    @Get(':id')
+    @Bind(Param('id')) findOne(id) {
+        return `This action returns a #${id} cat`;
+    }
+}
+```
+
+<!-- tabs:end -->
 
 ## Поддоменная маршрутизация
 
@@ -355,6 +454,10 @@ singleton)
 
 **_cats.controller.ts_**
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Controller, Get } from '@nestjs/common';
 
@@ -367,12 +470,31 @@ class CatsController {
 }
 ```
 
+#### **JavaScript**
+
+```js
+import { Controller, Get } from '@nestjs/common';
+
+@Controller() class CatsController {
+    @Get()
+    async findAll() {
+        return [];
+    }
+}
+```
+
+<!-- tabs:end -->
+
 Данный код совершенно корректен. Более того, обработчики маршрутов в **Nest** даже ещё мощнее, чем вы думаете — они
 могут возвращать наблюдаемые потоки RxJS
 (RxJS [observable streams](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)).
 **Nest** самостоятельно подпишется на них и заберёт последнее возвращенное значение (как только поток будет завершён).
 
 **_cats.controller.ts_**
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Controller, Get } from '@nestjs/common';
@@ -386,6 +508,21 @@ class CatsController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Get } from '@nestjs/common';
+import { Observable, of } from 'rxjs';
+
+@Controller() class CatsController {
+    @Get() findAll() {
+        return of([]);
+    }
+}
+```
+
+<!-- tabs:end -->
 
 Оба приведённых подхода отлично работают и вы можете использовать всё, что соответствует вашим требованиям.
 
@@ -420,6 +557,10 @@ export class CreateCatDto {
 
 **_cats.controller.ts_**
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto'
@@ -432,6 +573,22 @@ class CatsController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Body, Controller, Post } from '@nestjs/common';
+
+@Controller() class CatsController {
+    @Post()
+    @Bind(Body())
+    async create(createCatDto) {
+        return 'This action adds a new cat';
+    }
+}
+```
+
+<!-- tabs:end -->
 
 > [!NOTE]
 > `ValidationPipe` может отфильтровывать свойства, которые обработчик маршрута не ожидает получить. Простыми словами, те свойства, которых нет в **DTO**, будут удалены из результирующего объекта. В примере с `CreateCatDto`, разрешёнными для отправки свойствами являются `name`, `age`, и `breed`. Подробнее о валидации вы можете прочитать [здесь]().
@@ -446,6 +603,10 @@ class CatsController {
 предоставляет набор методов для доступа и управления внутренними данными.
 
 **_cats.controller.ts_**
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
@@ -480,6 +641,43 @@ export class CatsController {
 }
 ```
 
+#### **JavaScript**
+
+```js
+import { Controller, Get, Query, Post, Body, Put, Param, Delete, Bind } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+    @Post()
+    @Bind(Body()) create(createCatDto) {
+        return 'This action adds a new cat';
+    }
+
+    @Get()
+    @Bind(Query()) findAll(query) {
+        console.log(query);
+        return `This action returns all cats (limit: ${query.limit} items)`;
+    }
+
+    @Get(':id')
+    @Bind(Param('id')) findOne(id) {
+        return `This action returns a #${id} cat`;
+    }
+
+    @Put(':id')
+    @Bind(Param('id'), Body()) update(id, updateCatDto) {
+        return `This action updates a #${id} cat`;
+    }
+
+    @Delete(':id')
+    @Bind(Param('id')) remove(id) {
+        return `This action removes a #${id} cat`;
+    }
+}
+```
+
+<!-- tabs:end -->
+
 > [!NOTE]
 > **Nest CLI** предоставляет генератор, который за вас создаёт весь **шаблонный код**, чтобы помочь вам не делать всего самостоятельно, что значительно упрощает жизнь разработчикам.
 > Подробнее об этом [здесь]().
@@ -495,6 +693,10 @@ export class CatsController {
 
 **_app.module.ts_**
 
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
@@ -505,6 +707,20 @@ import { CatsController } from './cats/cats.controller';
 export class AppModule {}
 ```
 
+#### **JavaScript**
+
+```js
+import { Module } from '@nestjs/common';
+import { CatsController } from './cats/cats.controller';
+
+@Module({
+    controllers: [CatsController],
+})
+export class AppModule {}
+```
+
+<!-- tabs:end -->
+
 Мы прикрепили метаданные к модулю, используя декоратор `@Module`, и теперь **Nest** лего может определить, какие
 контроллеры необходимо использовать.
 
@@ -514,6 +730,10 @@ export class AppModule {}
 использовать [объект ответа](https://expressjs.com/en/api.html#res) базовой платформы. Чтобы внедрить объект ответа, нам
 нужно использовать декоратор `@Res()`. Чтобы показать вам различия, давайте поменяем реализацию `CatsController` на
 такую:
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
@@ -533,6 +753,27 @@ export class CatsController {
 }
 ```
 
+#### **JavaScript**
+
+```js
+import { Controller, Get, Post, Bind, Res, Body, HttpStatus } from '@nestjs/common';
+
+@Controller('cats')
+export class CatsController {
+    @Post()
+    @Bind(Res(), Body()) create(res, createCatDto) {
+        res.status(HttpStatus.CREATED).send();
+    }
+
+    @Get()
+    @Bind(Res()) findAll(res) {
+        res.status(HttpStatus.OK).json([]);
+    }
+}
+```
+
+<!-- tabs:end -->
+
 Хоть такой способ и работает, и фактически обеспечивает бóльшую гибкость в некоторых случаях, предоставляя полный
 контроль над объектом ответа (управление заголовками, специфичную для базовой платформы функциональность так далее), вам
 следует использовать его осторожно. В основном, такой подход куда менее чист имеет некоторые недостатки. Главный
@@ -543,6 +784,10 @@ export class CatsController {
 Кроме того, в примере сверху вы теряете совместимость с функциями **Nest**, которые зависят от стандартной обработки
 ответов **Nest**, такими как перехватчики и декораторы `@HttpCode()` / `@Header()`. Чтобы это исправить, вы можете
 активировать свойство `passthrough`, как в этом примере:
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
@@ -557,6 +802,24 @@ export class SomeController {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Response } from 'express';
+
+@Controller()
+export class SomeController {
+    @Get()
+    @Bind(Res({ passthrough: true })) findAll(res) {
+        res.status(HttpStatus.OK);
+        return [];
+    }
+}
+```
+
+<!-- tabs:end -->
 
 Итак, теперь вы можете взаимодействовать с родным для платформы объектом ответа (к примеру, задать cookies или
 заголовки, которые будут зависеть от конкретных условий), но остальную работу предоставить фреймворку.

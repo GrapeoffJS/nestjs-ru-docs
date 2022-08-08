@@ -21,6 +21,11 @@
 
 **_cats.service.ts_**
 
+
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { Cat } from './interfaces/cat.interface';
@@ -38,6 +43,75 @@ export class CatsService {
     }
 }
 ```
+
+#### **JavaScript**
+
+```js
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class CatsService {
+    constructor() {
+        this.cats = [];
+    }
+
+    create(cat) {
+        this.cats.push(cat);
+    }
+
+    findAll() {
+        return this.cats;
+    }
+}
+```
+
+<!-- tabs:end -->
+
+
+<!-- tabs:start -->
+
+#### **TypeScript**
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { Cat } from './interfaces/cat.interface';
+
+@Injectable()
+export class CatsService {
+    private readonly cats: Cat[] = [];
+
+    create(cat: Cat) {
+        this.cats.push(cat);
+    }
+
+    findAll(): Cat[] {
+        return this.cats;
+    }
+}
+```
+
+#### **JavaScript**
+
+```js
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class CatsService {
+    constructor() {
+        this.cats = [];
+    }
+
+    create(cat) {
+        this.cats.push(cat);
+    }
+
+    findAll() {
+        return this.cats;
+    }
+}
+```
+
+<!-- tabs:end -->
 
 > [!NOTE] Чтобы создать интерфейс при помощи **CLI**, просто запустите эту команду: `$ nest g service cats`
 
@@ -59,6 +133,11 @@ export interface Cat {
 Сейчас, когда у нас есть сервис дя получения котиков, давайте используем его внутри `CatsController`:
 
 **_cats.service.ts_**
+
+
+<!-- tabs:start -->
+
+#### **TypeScript**
 
 ```typescript
 import { Body, Controller, Get, Post } from '@nestjs/common';
@@ -82,9 +161,37 @@ export class CatsController {
 }
 ```
 
-`CatsService` был внедрён через конструктор. Заметьте, что мы использовали модификатор доступа `private`. Это сокращение
-позволяет нам объявить и сразу же инициализировать `catsService` в одном и том же месте. Данная запись эквивалентна
-приведённой снизу:
+#### **JavaScript**
+
+```js
+import { Controller, Get, Post, Body, Bind, Dependencies } from '@nestjs/common';
+import { CatsService } from './cats.service';
+
+@Controller('cats')
+@Dependencies(CatsService)
+export class CatsController {
+    constructor(catsService) {
+        this.catsService = catsService;
+    }
+
+    @Post()
+    @Bind(Body())
+    async create(createCatDto) {
+        this.catsService.create(createCatDto);
+    }
+
+    @Get()
+    async findAll() {
+        return this.catsService.findAll();
+    }
+}
+```
+
+<!-- tabs:end -->
+
+`CatsService` был **внедрён** через конструктор. Заметьте, что мы использовали модификатор доступа `private`. Это
+сокращение позволяет нам объявить и сразу же инициализировать `catsService` в одном и том же месте. Данная запись
+эквивалентна приведённой снизу:
 
 ```typescript
 import { Controller } from '@nestjs/common';
@@ -189,6 +296,11 @@ export class HttpService<T> {
 
 **_app.module.ts_**
 
+
+<!-- tabs:start -->
+
+#### **TypeScript**
+
 ```typescript
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
@@ -200,6 +312,23 @@ import { CatsService } from './cats/cats.service';
 })
 export class AppModule {}
 ```
+
+#### **JavaScript**
+
+```js
+import { Module } from '@nestjs/common';
+import { CatsController } from './cats/cats.controller';
+import { CatsService } from './cats/cats.service';
+
+@Module({
+    controllers: [CatsController],
+    providers: [CatsService],
+})
+export class AppModule {}
+```
+
+<!-- tabs:end -->
+
 
 Теперь **Nest** сможет разрешить зависимости `CatsController`.
 

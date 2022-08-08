@@ -23,6 +23,10 @@
             border-bottom: 2px solid #505d6b !important;
         }
 
+        .page_toc .lv1 span {
+            font-weight: bold !important;
+        }
+
         @media screen and (max-width: 1300px) {
             .page_toc {
                 display: none !important;
@@ -46,13 +50,12 @@
     </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="app">Загружаю документацию...</div>
 
 <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
 
 <script>
     window.$docsify = {
-        name: '',
         repo: 'https://github.com/nestjs/nest',
         loadSidebar: true,
         subMaxLevel: window.innerWidth > 1300 ? 1 : 2,
@@ -97,7 +100,7 @@
             }
         },
         plugins: [
-            EditOnGithubPlugin.create('https://github.com/GrapeoffJS/kindagoose/tree/master/docs', null, "Нашёл ошибку? Жми сюда!")
+            EditOnGithubPlugin.create('https://github.com/GrapeoffJS/kindagoose/blob/master/docs/', null, "Нашёл ошибку? Жми сюда!")
         ],
         customPageTitle: {
             suffix: 'Документация NestJS',
@@ -106,6 +109,18 @@
         toc: {
             tocMaxLevel: 2,
             target: 'h1, h2'
+        },
+        tabs: {
+            persist: true,
+            sync: true,
+            theme: 'classic',
+            tabComments: true,
+            tabHeadings: true
+        },
+        timeUpdater: {
+            text: "<div style='text-align: right'><strong>Последний раз изменено: {docsify-updated}</strong> </div>",
+            formatUpdated: "{DD}.{MM}.{YYYY} в {HH}:{mm}",
+            whereToPlace: "top"
         },
     }
 </script>
@@ -131,6 +146,9 @@
 <script src="//cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/@sujaykumarh/docsify-plugin-title@1.x/dist/plugin.min.js"></script>
 <script src="https://unpkg.com/docsify-plugin-toc@1.3.1/dist/docsify-plugin-toc.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-progress@latest/dist/progress.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-updated/src/time-updater.min.js"></script>
 
 <!-- Syntax highlighting -->
 <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
