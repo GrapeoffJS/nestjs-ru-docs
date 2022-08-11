@@ -63,6 +63,8 @@ src/
 #### **TypeScript**
 
 ```typescript
+/* main.ts */
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -77,6 +79,8 @@ bootstrap();
 #### **JavaScript**
 
 ```js
+/* main.js */
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 

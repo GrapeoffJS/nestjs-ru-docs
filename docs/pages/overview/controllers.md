@@ -22,13 +22,13 @@
 данный префикс пути в декораторе `@Controller()` контроллера клиентов, чтобы не повторять каждый раз эту часть пути при
 определении маршрутов в текущем файле.
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('cats')
@@ -43,6 +43,8 @@ export class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get } from '@nestjs/common';
 
 @Controller('cats')
@@ -92,13 +94,13 @@ export class CatsController {
 к [объекту запроса](https://expressjs.com/en/api.html#req) используемой платформы (по умолчанию — Express). Мы можем
 получить к нему доступ применив декоратор `Req()` к одному из параметров обработчика.
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
 
@@ -114,6 +116,8 @@ export class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Bind, Get, Req } from '@nestjs/common';
 
 @Controller('cats')
@@ -175,6 +179,8 @@ export class CatsController {
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get, Post } from '@nestjs/common';
 
 @Controller('cats')
@@ -194,6 +200,8 @@ export class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get, Post } from '@nestjs/common';
 
 @Controller('cats')
@@ -452,13 +460,13 @@ singleton)
 Каждая асинхронная функция должна возвращать `Promise`. Это означает, что вы можете вернуть отложенное значение,
 которое **Nest** обработает самостоятельно. Давайте взглянем на этот пример:
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get } from '@nestjs/common';
 
 @Controller()
@@ -473,6 +481,8 @@ class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get } from '@nestjs/common';
 
 @Controller() class CatsController {
@@ -490,13 +500,13 @@ import { Controller, Get } from '@nestjs/common';
 (RxJS [observable streams](http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html)).
 **Nest** самостоятельно подпишется на них и заберёт последнее возвращенное значение (как только поток будет завершён).
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 
@@ -512,6 +522,8 @@ class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
 
@@ -555,13 +567,13 @@ export class CreateCatDto {
 У него всего три основных свойства. После этого, мы можем использовать наш новоиспечённый **DTO**
 внутри `CatsController`:
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto'
 
@@ -577,6 +589,8 @@ class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller() class CatsController {
@@ -602,13 +616,13 @@ import { Body, Controller, Post } from '@nestjs/common';
 Ниже приведён пример использования доступных декораторов, для того чтобы создать базовый контроллер. Этот контроллер
 предоставляет набор методов для доступа и управления внутренними данными.
 
-**_cats.controller.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreateCatDto, ListAllEntities, UpdateCatDto } from './dto';
 
@@ -644,6 +658,8 @@ export class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get, Query, Post, Body, Put, Param, Delete, Bind } from '@nestjs/common';
 
 @Controller('cats')
@@ -691,13 +707,13 @@ export class CatsController {
 как мы не создавали никаких модулей, кроме корневого `AppModule`, мы используем его, чтобы зарегистрировать в
 нём `CatsController`.
 
-**_app.module.ts_**
-
 <!-- tabs:start -->
 
 #### **TypeScript**
 
 ```typescript
+/* app.module.ts */
+
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
 
@@ -710,6 +726,8 @@ export class AppModule {}
 #### **JavaScript**
 
 ```js
+/* app.module.js */
+
 import { Module } from '@nestjs/common';
 import { CatsController } from './cats/cats.controller';
 
@@ -736,6 +754,8 @@ export class AppModule {}
 #### **TypeScript**
 
 ```typescript
+/* cats.controller.ts */
+
 import { Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 
@@ -756,6 +776,8 @@ export class CatsController {
 #### **JavaScript**
 
 ```js
+/* cats.controller.js */
+
 import { Controller, Get, Post, Bind, Res, Body, HttpStatus } from '@nestjs/common';
 
 @Controller('cats')
